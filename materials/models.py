@@ -5,12 +5,15 @@ class Course(models.Model):
     """модель для курса"""
 
     title = models.TextField(
-        verbose_name="Название курса", help_text="Введите название курмп"
+        verbose_name="Название курса", help_text="Введите название курса"
     )
     description = models.TextField(
-        verbose_name="Описание курса", help_text="Введите описание курса"
+        verbose_name="Описание курса",
+        help_text="Введите описание курса",
+        null=True,
+        blank=True,
     )
-    preview = models.ImageField(verbose_name="Превью")
+    preview = models.ImageField(verbose_name="Превью", null=True, blank=True)
 
     created_at = models.DateTimeField(
         verbose_name="Дата/время создания", auto_now_add=True
@@ -34,14 +37,22 @@ class Lesson(models.Model):
         verbose_name="Название", help_text="Введите название урока"
     )
     description = models.TextField(
-        verbose_name="Описание", help_text="Введите описание урока"
+        verbose_name="Описание",
+        help_text="Введите описание урока",
+        null=True,
+        blank=True,
     )
-    preview = models.ImageField(verbose_name="Превью")
+    preview = models.ImageField(verbose_name="Превью", null=True, blank=True)
     video_url = models.URLField(
         max_length=200, verbose_name="Ссылка на видео", null=True, blank=True
     )
     course = models.ForeignKey(
-        Course, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Курс"
+        Course,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Курс",
+        related_name="lessons",
     )
 
     created_at = models.DateTimeField(

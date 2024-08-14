@@ -7,6 +7,7 @@
 - пользователь
 - курс    
 - занятие
+- платеж
 
 ## Установка и использование
 
@@ -42,4 +43,14 @@ python3 ./manage.py migrate
 4. запустить сервер:
 ```commandline
 python3 ./manage.py runserver
+```
+
+## Создание суперпользователя:
+```commandline
+        python manage.py createadmin --email admin@example.com --password admin
+```
+
+## Наполнение БД:
+```commandline
+        python manage.py loaddata ./fixtures/data.json
 ```
