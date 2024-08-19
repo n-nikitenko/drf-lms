@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -20,6 +21,15 @@ class Course(models.Model):
     )
     updated_at = models.DateTimeField(
         verbose_name="Дата/время обновления", auto_now=True
+    )
+
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        verbose_name="Автор",
+        related_name="courses",
+        null=True,
+        blank=True,
     )
 
     def __str__(self):
@@ -60,6 +70,15 @@ class Lesson(models.Model):
     )
     updated_at = models.DateTimeField(
         verbose_name="Дата/время обновления", auto_now=True
+    )
+
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        verbose_name="Автор",
+        related_name="lessons",
+        null=True,
+        blank=True,
     )
 
     def __str__(self):
