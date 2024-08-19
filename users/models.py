@@ -29,6 +29,10 @@ class User(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
+    @property
+    def is_moderator(self):
+        return self.groups.filter(name="moderators").exists()
+
     def __str__(self):
         return self.email
 
