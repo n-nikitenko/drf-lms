@@ -1,4 +1,4 @@
-# drf-lms
+pyth# drf-lms
 
 ## Платформа для онлайн-обучения
 
@@ -52,5 +52,5 @@ python3 ./manage.py runserver
 
 ## Наполнение БД:
 ```commandline
-        python manage.py loaddata ./fixtures/data.json
+        python manage.py loaddata --exclude auth.permission --exclude contenttypes ./fixtures/data.json
 ```

@@ -1,8 +1,7 @@
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 
-from materials.serializers import CourseSerializer, LessonSerializer
-from users.models import Payment
+from users.models import Payment, User
 
 
 class PaymentSerializer(serializers.ModelSerializer):
@@ -15,3 +14,22 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = ("course", "lesson", "user_email", "value", "method", "created_at")
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("id", "email", "password")
+        extra_kwargs = {"password": {"write_only": True}}
+
+
+class UserRetrieveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("id", "email", "avatar", "phone", "is_active", "is_staff")
+
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("id", "email", "avatar", "phone")
