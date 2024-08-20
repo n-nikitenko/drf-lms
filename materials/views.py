@@ -1,13 +1,16 @@
-from django.shortcuts import get_object_or_404
+from rest_framework import status
 from rest_framework.generics import (CreateAPIView, DestroyAPIView,
-                                     ListAPIView, RetrieveAPIView,
-                                     UpdateAPIView)
+                                     ListAPIView,
+                                     RetrieveAPIView, UpdateAPIView)
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from materials.models import Course, Lesson
+from materials.models import Course, Lesson, Subscription
 from materials.permissions import IsModeratorPermission, IsOwnerPermission
-from materials.serializers import CourseSerializer, LessonSerializer
+from materials.serializers import (CourseSerializer, LessonSerializer,
+                                   SubscriptionSerializer)
 
 
 class CourseViewSet(ModelViewSet):
@@ -78,3 +81,31 @@ class LessonDestroyApiView(DestroyAPIView):
         IsAuthenticated,
         ~IsModeratorPermission | IsOwnerPermission,
     )
+
+
+class SubscriptionViewSet(APIView):
+    queryset = Subscription.objects.all()
+    serializer_class = SubscriptionSerializer
+
+    def post(self, request, format=None):
+        """Если подписка текущего пользователя на указанный курс существует, удалить. Иначе - создать."""
+
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            course_item = serializer.validated_data.get("course")
+            subs_item = Subscription.objects.filter(
+                course=course_item, user=request.user
+            )
+            if subs_item.exists():
+                message = "подписка удалена"
+                subs_item.delete()
+                status_code = status.HTTP_204_NO_CONTENT
+            else:
+                message = "подписка добавлена"
+                status_code = status.HTTP_201_CREATED
+                serializer.validated_data["user"] = request.user
+                serializer.save()
+            return Response(
+                {"message": message, "data": serializer.data}, status=status_code
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
