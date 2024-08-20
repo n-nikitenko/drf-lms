@@ -19,7 +19,16 @@ djangorestframework-simplejwt = "^5.3.1"
 [tool.poetry.group.dev.dependencies]
 black = "^24.8.0"
 isort = "^5.13.2"
+coverage = "^7.6.1"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.run]
+omit = [
+    "*/migrations/*.py",
+    "*/fixtures/*",
+     "*/config/*",
+    "manage.py"
+    ]
