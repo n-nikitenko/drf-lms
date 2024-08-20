@@ -36,6 +36,7 @@ class Course(models.Model):
         return f"{self.title}"
 
     class Meta:
+        ordering = ["id"]
         verbose_name = "Курс"
         verbose_name_plural = "Курсы"
 
@@ -87,6 +88,7 @@ class Lesson(models.Model):
     class Meta:
         verbose_name = "Урок"
         verbose_name_plural = "Уроки"
+        ordering = ["id"]
 
 
 class Subscription(models.Model):

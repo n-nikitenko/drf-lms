@@ -54,3 +54,9 @@ python3 ./manage.py runserver
 ```commandline
         python manage.py loaddata --exclude auth.permission --exclude contenttypes ./fixtures/data.json
 ```
+
+## Проверка степени покрытия тестами (linux):
+```commandline
+        coverage run --source='.' manage.py test 
+        coverage report  
+```

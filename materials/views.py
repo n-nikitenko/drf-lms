@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.generics import (CreateAPIView, DestroyAPIView,
-                                     ListAPIView,
-                                     RetrieveAPIView, UpdateAPIView)
+                                     ListAPIView, RetrieveAPIView,
+                                     UpdateAPIView)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -102,7 +102,7 @@ class SubscriptionViewSet(APIView):
             if subs_item.exists():
                 message = "подписка удалена"
                 subs_item.delete()
-                status_code = status.HTTP_204_NO_CONTENT
+                status_code = status.HTTP_200_OK
             else:
                 message = "подписка добавлена"
                 status_code = status.HTTP_201_CREATED
