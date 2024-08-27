@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.generics import (CreateAPIView, DestroyAPIView,
                                      ListAPIView, RetrieveAPIView,
@@ -14,6 +16,21 @@ from materials.serializers import (CourseSerializer, LessonSerializer,
                                    SubscriptionSerializer)
 
 
+@method_decorator(name='list', decorator=swagger_auto_schema(
+    operation_description="Получение списка курсов"
+))
+@method_decorator(name='create', decorator=swagger_auto_schema(
+    operation_description="Создание курса"
+))
+@method_decorator(name='retrieve', decorator=swagger_auto_schema(
+    operation_description="Получение данных курса по id"
+))
+@method_decorator(name='update', decorator=swagger_auto_schema(
+    operation_description="Обновление данных курса по id"
+))
+@method_decorator(name='destroy', decorator=swagger_auto_schema(
+    operation_description="Удаление курса по id"
+))
 class CourseViewSet(ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
@@ -41,6 +58,7 @@ class CourseViewSet(ModelViewSet):
 
 
 class LessonCreateApiView(CreateAPIView):
+    """Создание занятия"""
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = (
@@ -53,6 +71,7 @@ class LessonCreateApiView(CreateAPIView):
 
 
 class LessonRetrieveApiView(RetrieveAPIView):
+    """Получение данных занятия по id"""
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = (
@@ -62,6 +81,7 @@ class LessonRetrieveApiView(RetrieveAPIView):
 
 
 class LessonListApiView(ListAPIView):
+    """Получение списка занятий"""
     serializer_class = LessonSerializer
     pagination_class = MaterialPaginator
     queryset = Lesson.objects.all()
@@ -69,6 +89,7 @@ class LessonListApiView(ListAPIView):
 
 
 class LessonUpdateApiView(UpdateAPIView):
+    """Обновление данных занятия"""
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = (
@@ -78,6 +99,7 @@ class LessonUpdateApiView(UpdateAPIView):
 
 
 class LessonDestroyApiView(DestroyAPIView):
+    """Удаление занятия по id"""
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = (
