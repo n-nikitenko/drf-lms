@@ -16,6 +16,17 @@ class PaymentSerializer(serializers.ModelSerializer):
         fields = ("course", "lesson", "user_email", "value", "method", "created_at")
 
 
+class PaymentCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = "__all__"
+        extra_kwargs = {
+            "user": {"read_only": True},
+            "session_id": {"read_only": True},
+            "link": {"read_only": True},
+        }
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
