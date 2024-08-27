@@ -1,4 +1,4 @@
-pyth# drf-lms
+# drf-lms
 
 ## Платформа для онлайн-обучения
 
@@ -34,6 +34,8 @@ POSTGRES_DB=postgres
 
 DJANGO_DEBUG=True
 DJANGO_SECRET_KEY=your_secret_key
+
+STRIPE_API_KEY=your_stripe_api_key
 ```
 3. выполнить миграции командой
 ```commandline
