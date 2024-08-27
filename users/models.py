@@ -80,7 +80,26 @@ class Payment(models.Model):
     value = models.PositiveIntegerField(verbose_name="Сумма оплаты")
 
     method = models.CharField(
-        choices=PAYMENT_METHOD_CHOICES, max_length=200, verbose_name="Метод оплаты"
+        choices=PAYMENT_METHOD_CHOICES,
+        max_length=200,
+        verbose_name="Метод оплаты",
+        default=TRANSFER,
+    )
+
+    session_id = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name="Id сессии",
+        help_text="Id сессии",
+    )
+
+    link = models.URLField(
+        max_length=400,
+        blank=True,
+        null=True,
+        verbose_name="Ссылка на оплату",
+        help_text="Ссылка на оплату",
     )
 
     def __str__(self):
