@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.db import models
 
+from materials.services import send_notifications
+
 
 class Course(models.Model):
     """модель для курса"""
@@ -34,6 +36,10 @@ class Course(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # Call the "real" save() method.
+        send_notifications(self)
 
     class Meta:
         ordering = ["id"]
@@ -81,6 +87,11 @@ class Lesson(models.Model):
         null=True,
         blank=True,
     )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # Call the "real" save() method.
+        if self.course:
+            send_notifications(self.course)
 
     def __str__(self):
         return f"{self.title}"

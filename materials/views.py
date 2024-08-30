@@ -14,6 +14,7 @@ from materials.paginators import MaterialPaginator
 from materials.permissions import IsModeratorPermission, IsOwnerPermission
 from materials.serializers import (CourseSerializer, LessonSerializer,
                                    SubscriptionSerializer)
+from materials.services import send_notifications
 
 
 @method_decorator(
@@ -44,6 +45,10 @@ class CourseViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
+
+    # def perform_update(self, serializer):
+    #     course = serializer.save()
+    #     send_notifications(course)
 
     def get_permissions(self):
         if self.action == "create":
@@ -131,8 +136,8 @@ class SubscriptionViewSet(APIView):
             course_item = serializer.validated_data.get("course")
             subs_item = Subscription.objects.filter(
                 course=course_item, user=request.user
-            )
-            if subs_item.exists():
+            ).first()
+            if subs_item:
                 message = "подписка удалена"
                 subs_item.delete()
                 status_code = status.HTTP_200_OK
