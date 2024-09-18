@@ -9,7 +9,15 @@
 - занятие
 - платеж
 
-## Установка и использование
+## Запуск через docker-compose
+1. Заполнить файл `.env` с переменными окружения
+2. Выполнить 
+```commandline
+    docker compose up --build
+```
+3. Сервис будет доступен по адресу: http://0.0.0.0:8000/
+
+## Установка и использование (локально)
 
 Для работы программы необходимо:
 
@@ -63,7 +71,3 @@ python3 ./manage.py runserver
         coverage report  --omit='migrations'
 ```
 
-## Сборка image
-```commandline
-    docker build --network=host -t drf-lms-app . 
-```

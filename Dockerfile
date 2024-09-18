@@ -13,7 +13,7 @@ ENV PATH="${PATH}:${POETRY_VENV}/bin"
 
 WORKDIR /code
 
-COPY poetry.lock pyproject.toml ./
+COPY pyproject.toml ./
 
 RUN poetry install --no-interaction --no-ansi
 
@@ -26,8 +26,6 @@ COPY fixtures ./fixtures
 COPY users ./users
 
 COPY manage.py ./
-
-CMD [ "poetry", "run", "python", "-c", "print('Hello, World!')" ]
 
 
 

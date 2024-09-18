@@ -32,7 +32,7 @@ DEBUG = os.getenv("DJANGO_DEBUG") == "True"
 
 STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0',]
 
 # Application definition
 
