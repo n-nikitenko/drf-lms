@@ -60,5 +60,5 @@ python3 ./manage.py runserver
 ## Проверка степени покрытия тестами (linux):
 ```commandline
         coverage run --source='.' manage.py test 
-        coverage report  
+        coverage report  --omit='migrations'
 ```

@@ -6,7 +6,7 @@ authors = ["Your Name <you@example.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.8.1"
 psycopg2-binary = "^2.9.9"
 pillow = "^10.4.0"
 python-dotenv = "^1.0.1"
@@ -26,6 +26,7 @@ django-celery-beat = "^2.7.0"
 black = "^24.8.0"
 isort = "^5.13.2"
 coverage = "^7.6.1"
+flake8 = "^7.1.1"
 
 [build-system]
 requires = ["poetry-core"]
