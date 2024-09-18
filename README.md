@@ -62,3 +62,8 @@ python3 ./manage.py runserver
         coverage run --source='.' manage.py test 
         coverage report  --omit='migrations'
 ```
+
+## Сборка image
+```commandline
+    docker build --network=host -t drf-lms-app . 
+```
