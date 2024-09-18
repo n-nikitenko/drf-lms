@@ -9,7 +9,15 @@
 - занятие
 - платеж
 
-## Установка и использование
+## Запуск через docker-compose
+1. Заполнить файл `.env` с переменными окружения
+2. Выполнить 
+```commandline
+    docker compose up --build
+```
+3. Сервис будет доступен по адресу: http://0.0.0.0:8000/
+
+## Установка и использование (локально)
 
 Для работы программы необходимо:
 
@@ -60,5 +68,6 @@ python3 ./manage.py runserver
 ## Проверка степени покрытия тестами (linux):
 ```commandline
         coverage run --source='.' manage.py test 
-        coverage report  
+        coverage report  --omit='migrations'
 ```
+
